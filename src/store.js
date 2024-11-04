@@ -24,6 +24,7 @@ function reducer(state = initialState, action) {
         ...state,
         loan: action.payload.amount,
         loanPurpose: action.payload.purpose,
+        balance: state.balance + action.payload.amount,
       };
     case "account/payLoan":
       return {
@@ -39,6 +40,28 @@ function reducer(state = initialState, action) {
 
 const store = createStore(reducer);
 
-store.dispatch({ type: "account/deposit", payload: 100 });
+// store.dispatch({ type: "account/deposit", payload: 100 });
+// store.dispatch({
+//   type: "account/requestLoan",
+//   payload: { amount: 1000, purpose: "pay off debt" },
+// });
+// console.log(store.getState());
 
-console.log(store.getState());
+//action creators are functions that return actions
+//they are used to avoid typos and to make the code more readable
+
+function deposit(amount) {
+  return { type: "account/deposit", payload: amount };
+}
+
+function withdraw(amount) {
+  return { type: "account/withdraw", payload: amount };
+}
+
+function requestLoan(amount, purpose) {
+  return { type: "account/requestLoan", payload: { amount, purpose } };
+}
+
+function payLoan() {
+  return { type: "account/payLoan" };
+}
