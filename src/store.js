@@ -19,6 +19,7 @@ function reducer(state = initialState, action) {
         balance: state.balance - action.payload,
       };
     case "account/requestLoan":
+      if (state.loan > 0) return state;
       return {
         ...state,
         loan: action.payload.amount,
