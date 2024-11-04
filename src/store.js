@@ -65,3 +65,10 @@ function requestLoan(amount, purpose) {
 function payLoan() {
   return { type: "account/payLoan" };
 }
+
+store.dispatch(deposit(100));
+store.dispatch(withdraw(50));
+store.dispatch(requestLoan(1000, "pay off debt"));
+// store.dispatch(payLoan());
+
+console.log(store.getState());
