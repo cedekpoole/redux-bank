@@ -6,7 +6,7 @@ function Customer() {
 
   const { fullName } = customer;
   return (
-    <h2 className="text-xl font-syne font-bold">
+    <h2 className="text-lg font-syne font-bold">
       WELCOME, {fullName ? fullName.toUpperCase() : "CUSTOMER"}
     </h2>
   );

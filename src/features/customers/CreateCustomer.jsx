@@ -8,7 +8,7 @@ function CreateCustomer() {
 
   return (
     <div className="max-w-lg mb-3 p-4">
-      <h2 className="text-xl font-syne font-bold mb-4">CREATE NEW CUSTOMER</h2>
+      <h2 className="text-lg font-syne font-bold mb-4">CREATE NEW CUSTOMER</h2>
       <div className="flex flex-col gap-4">
         <div className="flex flex-col">
           <label className="mb-1">Customer full name:</label>
