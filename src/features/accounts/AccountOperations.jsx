@@ -12,20 +12,25 @@ function AccountOperations() {
   const dispatch = useDispatch();
 
   const account = useSelector((store) => store.account);
-  const { loan } = account;
+  const { loan, loanPurpose: currentLoanPurpose } = account;
 
   function handleDeposit() {
+    if (!depositAmount) return;
+
     dispatch(deposit(depositAmount));
     setDepositAmount("");
   }
 
   function handleWithdrawal() {
+    if (!withdrawalAmount) return;
+
     dispatch(withdraw(withdrawalAmount));
     setWithdrawalAmount("");
   }
 
   function handleRequestLoan() {
     if (!loanAmount || !loanPurpose) return;
+
     dispatch(requestLoan(loanAmount, loanPurpose));
     setLoanAmount("");
     setLoanPurpose("");
@@ -91,15 +96,19 @@ function AccountOperations() {
         </div>
 
         {/* Payback Section */}
-        <div className="flex justify-between items-center">
-          <span className="text-sm">PAY BACK £{loan}</span>
-          <button
-            onClick={handlePayLoan}
-            className="bg-gray-200 hover:bg-gray-100 py-1 px-2 rounded shadow-sm"
-          >
-            Pay loan
-          </button>
-        </div>
+        {loan > 0 && (
+          <div className="flex justify-between items-center">
+            <span className="text-sm">
+              PAY BACK £{loan} ({currentLoanPurpose})
+            </span>
+            <button
+              onClick={handlePayLoan}
+              className="bg-gray-200 hover:bg-gray-100 py-1 px-2 rounded shadow-sm"
+            >
+              Pay loan
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );
