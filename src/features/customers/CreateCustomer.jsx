@@ -7,28 +7,30 @@ function CreateCustomer() {
   function handleClick() {}
 
   return (
-    <div>
-      <h2 className="text-2xl">Create new customer...</h2>
-      <div className="flex flex-col gap-3">
-        <div>
-          <label>Customer full name:</label>
+    <div className="max-w-lg mb-3 p-4">
+      <h2 className="text-xl font-syne font-bold mb-4">CREATE NEW CUSTOMER</h2>
+      <div className="flex flex-col gap-4">
+        <div className="flex flex-col">
+          <label className="mb-1">Customer full name:</label>
           <input
+            className="border rounded px-2 py-1"
             value={fullName}
             onChange={(e) => setFullName(e.target.value)}
           />
         </div>
-        <div>
-          <label>National ID:</label>
+        <div className="flex flex-col">
+          <label className="mb-1">National ID:</label>
           <input
+            className="border rounded px-2 py-1"
             value={nationalId}
             onChange={(e) => setNationalId(e.target.value)}
           />
         </div>
         <button
-          className="self-start bg-gray-200 hover:bg-gray-100 py-2 px-2.5 rounded-lg shadow-sm"
+          className="self-end bg-gray-200 hover:bg-gray-100 py-1.5 px-4 rounded shadow-sm font-syne"
           onClick={handleClick}
         >
-          Create new customer
+          CREATE
         </button>
       </div>
     </div>
