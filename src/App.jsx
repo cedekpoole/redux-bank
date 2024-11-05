@@ -3,13 +3,14 @@ import Header from "./components/Header";
 import CreateCustomer from "./features/customers/CreateCustomer";
 import Customer from "./features/customers/Customer";
 import AccountOperations from "./features/accounts/AccountOperations";
+import Container from "./components/Container";
 
 function App() {
   const hasAccount = useSelector((store) => store.customer.hasAccount);
 
   return (
     <>
-      <div className="container mx-auto mt-5 font-inter text-[#1E272D]">
+      <Container>
         <Header />
         {!hasAccount ? (
           <CreateCustomer />
@@ -19,7 +20,7 @@ function App() {
             <AccountOperations />
           </>
         )}
-      </div>
+      </Container>
     </>
   );
 }
