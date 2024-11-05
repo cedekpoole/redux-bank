@@ -1,4 +1,9 @@
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
+
+BalanceDisplay.propTypes = {
+  balance: PropTypes.number.isRequired,
+};
 
 function formatCurrency(value) {
   return new Intl.NumberFormat("en", {
