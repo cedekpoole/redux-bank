@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import FormButton from "../../components/FormButton";
+import { deposit, payLoan, requestLoan, withdraw } from "./accountSlice";
 
 function AccountOperations() {
   const [depositAmount, setDepositAmount] = useState("");
@@ -13,13 +14,26 @@ function AccountOperations() {
   const account = useSelector((store) => store.account);
   const { loan } = account;
 
-  function handleDeposit() {}
+  function handleDeposit() {
+    dispatch(deposit(depositAmount));
+    setDepositAmount("");
+  }
 
-  function handleWithdrawal() {}
+  function handleWithdrawal() {
+    dispatch(withdraw(withdrawalAmount));
+    setWithdrawalAmount("");
+  }
 
-  function handleRequestLoan() {}
+  function handleRequestLoan() {
+    if (!loanAmount || !loanPurpose) return;
+    dispatch(requestLoan(loanAmount, loanPurpose));
+    setLoanAmount("");
+    setLoanPurpose("");
+  }
 
-  function handlePayLoan() {}
+  function handlePayLoan() {
+    dispatch(payLoan());
+  }
 
   return (
     <div className="max-w-sm m-3">
@@ -36,9 +50,7 @@ function AccountOperations() {
               placeholder="Amount in £"
               className="border rounded p-1 flex-grow"
             />
-            <FormButton onClick={handleDeposit}>
-              Deposit £{depositAmount}
-            </FormButton>
+            <FormButton onClick={handleDeposit}>Deposit</FormButton>
           </div>
         </div>
 
@@ -53,9 +65,7 @@ function AccountOperations() {
               placeholder="Amount in £"
               className="border rounded p-1 flex-grow"
             />
-            <FormButton onClick={handleWithdrawal}>
-              Withdraw £{withdrawalAmount}
-            </FormButton>
+            <FormButton onClick={handleWithdrawal}>Withdraw</FormButton>
           </div>
         </div>
 
@@ -70,9 +80,7 @@ function AccountOperations() {
               placeholder="Loan amount"
               className="border rounded p-1 flex-grow"
             />
-            <FormButton onClick={handleRequestLoan}>
-              Request £{loanAmount}
-            </FormButton>
+            <FormButton onClick={handleRequestLoan}>Request £</FormButton>
           </div>
           <input
             value={loanPurpose}
