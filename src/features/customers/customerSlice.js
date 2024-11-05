@@ -2,6 +2,7 @@ const initalStateCustomer = {
   fullName: "",
   nationalId: "",
   createdAt: "",
+  hasAccount: false,
 };
 
 //reducer is a function that takes the current state and an action and returns a new state
@@ -14,6 +15,7 @@ export default function customerReducer(state = initalStateCustomer, action) {
         fullName: action.payload.fullName,
         nationalId: action.payload.nationalId,
         createdAt: action.payload.createdAt,
+        hasAccount: true,
       };
     case "customer/updateName":
       return {
