@@ -2,6 +2,7 @@ const initialStateAccount = {
   balance: 0,
   loan: 0,
   loanPurpose: "",
+  isLoading: false,
 };
 
 //reducer is a function that takes the current state and an action and returns a new state
@@ -11,6 +12,7 @@ export default function accountReducer(state = initialStateAccount, action) {
       return {
         ...state,
         balance: state.balance + action.payload,
+        isLoading: false,
       };
     case "account/withdraw":
       return {
@@ -32,6 +34,11 @@ export default function accountReducer(state = initialStateAccount, action) {
         loanPurpose: "",
         balance: state.balance - state.loan,
       };
+    case "account/convertingCurrency":
+      return {
+        ...state,
+        isLoading: true,
+      };
     default:
       return state;
   }
@@ -47,8 +54,17 @@ export default function accountReducer(state = initialStateAccount, action) {
 //action creators are functions that return actions
 //they are used to avoid typos and to make the code more readable
 
-export function deposit(amount) {
-  return { type: "account/deposit", payload: amount };
+export function deposit(amount, currency) {
+  if (currency === "GBP") return { type: "account/deposit", payload: amount };
+  return async (dispatch, getState) => {
+    dispatch({ type: "account/convertingCurrency" });
+    const res = await fetch(
+      `https://api.frankfurter.app/latest?base=${currency}&symbols=GBP`
+    );
+    const data = await res.json();
+    const converted = (amount * data.rates.GBP).toFixed(2);
+    dispatch({ type: "account/deposit", payload: +converted });
+  };
 }
 
 export function withdraw(amount) {

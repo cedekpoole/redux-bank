@@ -8,17 +8,19 @@ function AccountOperations() {
   const [withdrawalAmount, setWithdrawalAmount] = useState("");
   const [loanAmount, setLoanAmount] = useState("");
   const [loanPurpose, setLoanPurpose] = useState("");
+  const [currency, setCurrency] = useState("GBP");
 
   const dispatch = useDispatch();
 
   const account = useSelector((store) => store.account);
-  const { loan, loanPurpose: currentLoanPurpose } = account;
+  const { loan, loanPurpose: currentLoanPurpose, isLoading } = account;
 
   function handleDeposit() {
     if (!depositAmount) return;
 
-    dispatch(deposit(depositAmount));
+    dispatch(deposit(depositAmount, currency));
     setDepositAmount("");
+    setCurrency("GBP");
   }
 
   function handleWithdrawal() {
@@ -52,10 +54,21 @@ function AccountOperations() {
               type="number"
               value={depositAmount}
               onChange={(e) => setDepositAmount(+e.target.value)}
-              placeholder="Amount in £"
+              placeholder="Amount"
               className="border rounded p-1 flex-grow"
             />
-            <FormButton onClick={handleDeposit}>Deposit</FormButton>
+            <select
+              value={currency}
+              onChange={(e) => setCurrency(e.target.value)}
+              className="p-1 border rounded"
+            >
+              <option value="USD">$</option>
+              <option value="EUR">€</option>
+              <option value="GBP">£</option>
+            </select>
+            <FormButton onClick={handleDeposit} disabled={isLoading}>
+              {isLoading ? "Loading..." : "Deposit"}
+            </FormButton>
           </div>
         </div>
 
