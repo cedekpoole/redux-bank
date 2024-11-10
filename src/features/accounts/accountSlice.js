@@ -40,20 +40,20 @@ const accountSlice = createSlice({
   },
 });
 
-export const { deposit, withdraw, requestLoan, payLoan } = accountSlice.actions;
+export const { withdraw, requestLoan, payLoan } = accountSlice.actions;
 
-// export function deposit(amount, currency) {
-//   if (currency === "GBP") return { type: "account/deposit", payload: amount };
-//   return async (dispatch, getState) => {
-//     dispatch({ type: "account/convertingCurrency" });
-//     const res = await fetch(
-//       `https://api.frankfurter.app/latest?base=${currency}&symbols=GBP`
-//     );
-//     const data = await res.json();
-//     const converted = (amount * data.rates.GBP).toFixed(2);
-//     dispatch({ type: "account/deposit", payload: +converted });
-//   };
-// }
+export function deposit(amount, currency) {
+  if (currency === "GBP") return { type: "account/deposit", payload: amount };
+  return async (dispatch, getState) => {
+    dispatch({ type: "account/convertingCurrency" });
+    const res = await fetch(
+      `https://api.frankfurter.app/latest?base=${currency}&symbols=GBP`
+    );
+    const data = await res.json();
+    const converted = (amount * data.rates.GBP).toFixed(2);
+    dispatch({ type: "account/deposit", payload: +converted });
+  };
+}
 
 export default accountSlice.reducer;
 
