@@ -30,9 +30,9 @@ const accountSlice = createSlice({
       },
     },
     payLoan(state) {
+      state.balance -= state.loan;
       state.loan = 0;
       state.loanPurpose = "";
-      state.balance -= state.loan;
     },
     convertingCurrency(state) {
       state.isLoading = true;
